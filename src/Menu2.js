@@ -5,7 +5,7 @@ export default class Menu2 extends Component {
     menus: ['짜장면', '짬뽕', '볶음밥', '탕수육', '유린기', '라조기'],
     menu: null
   }
-  choiceMenu = item => {
+  updateMenu = item => {
     this.setState({
       menu: item
     })
@@ -16,7 +16,7 @@ export default class Menu2 extends Component {
         <MenuSelector 
           menus={this.state.menus}
           menu={this.state.menu}
-          onChoice={this.choiceMenu}
+          onUpdateMenu={this.updateMenu}
         />
       </div>
     )
@@ -25,11 +25,11 @@ export default class Menu2 extends Component {
 
 class MenuSelector extends Component {
   render() {
-    const {menus, menu, onChoice} = this.props;
+    const {menus, menu, onUpdateMenu} = this.props;
     return (
       <div>
         {menus.map(item => (
-          <button onClick={e => onChoice(item)}>{item}</button>
+          <button onClick={e => onUpdateMenu(item)}>{item}</button>
         ))}
         <div>{menu && `${menu} 을 선택하셨습니다.`}</div>
       </div>

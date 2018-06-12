@@ -107,3 +107,8 @@
 .menu-selector {
   margin-top: 2em;
 }
+
+/* todo list */
+.todo__item--complete {
+  text-decoration: line-through
+}
