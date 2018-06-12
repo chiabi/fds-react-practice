@@ -1,34 +1,96 @@
 import React, { Component } from 'react';
 import './App.css';
 
+let count = 1;
+
 class App extends Component {
+
+  formRef = React.createRef();
+
   state = {
-    number: 0
+    todos: [
+      {
+        id: count++,
+        body: 'React 공부',
+        complete: false
+      },
+      {
+        id: count++,
+        body: 'Redux 공부',
+        complete: false
+      }
+    ],
   }
 
-  incNumber = () => {
-    this.setState((prevState) => ({number: prevState.number + 1}))
+  handleNewTodo = newTodoBody => {
+    const newTodo = {
+      id: count++,
+      body: newTodoBody,
+      complete: false
+    };
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        newTodo
+      ]
+    });
   }
 
   render() {
-    const {number} = this.state;
     return (
-      <div className="App">
-        <Counter number={number} onIncNumber={this.incNumber}/>
+      <div>
+        <TodoForm ref={this.formRef} onAdd={this.handleNewTodo} />
+        <TodoList todos={this.state.todos} />
       </div>
-    );
+    )
+  }
+
+  componentDidMount() {
+    console.log(this.formRef.current)
   }
 }
 
-class Counter extends Component {
+class TodoForm extends Component {
+
+  inputRef = React.createRef();
+  state = {
+    newTodoBody: ''
+  }
+  handleInputChange = e => {
+    this.setState({
+      newTodoBody: e.target.value
+    })
+  }
+  handleButtonClick = e => {
+    this.props.onAdd(this.state.newTodoBody);
+    this.setState({
+      newTodoBody: ''
+    })
+  }
+
+  componentDidMount() {
+    this.inputRef.current.focus();
+  }
   render() {
-    const {number, onIncNumber} = this.props;
+    const {newTodoBody} = this.state;
     return (
       <div>
-        <span>{number}</span>
-        <button onClick={onIncNumber}>증가</button>
-        <button>감소</button>
+        <input ref={this.inputRef} type="text" value={newTodoBody} onChange={this.handleInputChange} />
+        <button onClick={this.handleButtonClick}>추가</button>
       </div>
+    )
+  }
+}
+
+class TodoList extends Component {
+  render() {
+    const {todos} = this.props;
+    return (
+      <ul>
+        {todos.map(todo => (
+          <li key={todo.id}>{todo.body}</li>
+        ))}
+      </ul>
     )
   }
 }
