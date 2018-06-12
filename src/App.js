@@ -1,36 +1,39 @@
 import React, { Component } from 'react';
+import Sum from './Sum';
 import './App.css';
 
+const CHECK_NUM = 5;
+const noCheckArray = new Array(CHECK_NUM).fill(false)
 class App extends Component {
   state = {
-    number: 0
+    checks: noCheckArray
   }
-
-  incNumber = () => {
-    this.setState((prevState) => ({number: prevState.number + 1}))
+  changeCheck = eIdx => {
+    this.setState({
+      checks: this.state.checks.map((item, idx) => {
+        return idx === eIdx ? !item : item
+      })
+    })
   }
-
   render() {
-    const {number} = this.state;
     return (
       <div className="App">
-        <Counter number={number} onIncNumber={this.incNumber}/>
+        <div className="checks">
+          {this.state.checks.map((item, idx) => {
+            return (
+              <span 
+                className={`check ${item ? 'checked' : ''}`} 
+                key={idx} 
+                onClick={e => this.changeCheck(idx)}
+              >{item ? 'X' : 'O'}</span>
+            )
+          })}
+        </div>
+        <Sum/>
       </div>
     );
   }
 }
 
-class Counter extends Component {
-  render() {
-    const {number, onIncNumber} = this.props;
-    return (
-      <div>
-        <span>{number}</span>
-        <button onClick={onIncNumber}>증가</button>
-        <button>감소</button>
-      </div>
-    )
-  }
-}
 
 export default App;
