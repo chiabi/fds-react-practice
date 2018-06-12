@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
 
-// const API_URL=''
-// const todoAPI = axios.create({
-//   baseURL: API_URL
-// })
-
-let count = 0
+let count = 1;
 export default class Todo extends Component {
   state = {
     todos: [
@@ -23,39 +17,6 @@ export default class Todo extends Component {
     ],
     newBody: ''
   }
-
-  // async componentDidMount() {
-  //   const res = await todoAPI.get('/todos');
-  //   this.setState({
-  //     todos: res.data
-  //   })
-  // }
-
-  // updateList = async () => {
-  //   const todosId = this.state.todos.map(todo => todo.id);
-  //   const newBody = this.state.newBody;
-  //   if(this.state.newBody) {
-  //     this.setState({
-  //       todos: [
-  //         ...this.state.todos,
-  //         {
-  //           id: Math.max(...todosId) + 1,
-  //           body: newBody,
-  //           complete: false
-  //         }
-  //       ],
-  //       newBody: ''
-  //     })
-  //     await todoAPI.post('/todos', {
-  //       body: newBody, 
-  //       complete: false
-  //     })
-  //     const res = await todoAPI.get('/todos');
-  //     this.setState({
-  //       todos: res.data
-  //     })
-  //   }
-  // }
 
   updateList = async () => {
     const {todos, newBody} = this.state;
@@ -115,8 +76,7 @@ class TodoForm extends Component {
     const {newBody, onUpdateNewBody, onUpdateList} = this.props
     return (
       <div>
-        <input type="text" placeholder="할일을 입력하세요" value={newBody} onChange={onUpdateNewBody}/>
-        <button onClick={onUpdateList}>추가하기</button>
+        <button onClick={this.handleButtonClick}>추가하기</button>
       </div>
     )
   }
@@ -146,11 +106,11 @@ class TodoItem extends Component {
   render () {
     const {id, body, complete, onChangeComplete} = this.props;
     return (
-      <div className={`todo__item ${complete && 'todo__item--complete'}`}>
+      <li className={`todo__item ${complete && 'todo__item--complete'}`}>
         {body}
         <button onClick={e => onChangeComplete(id)}>완료</button>
         <button>삭제</button>
-      </div>
+      </li>
     )
   }
 }
