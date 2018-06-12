@@ -4,24 +4,22 @@ export default class Sum extends Component {
   state = {
     number1: 3,
     number2: 4,
-    result: 7
+    // 다른 상태로부터 계산될 수 있는 것은 상태에 두지 않는 것이 좋다.
+    // result: 7
   }
   changeNum1 = e => {
-    const num = parseInt(e.target.value);
     this.setState({
-      number1: num,
-      result: num + this.state.number2
+      number1: parseInt(e.target.value)
     })
   }
   changeNum2 = e => {
-    const num = parseInt(e.target.value);
     this.setState({
-      number2: num,
-      result: num + this.state.number1
+      number2: parseInt(e.target.value),
     })
   }
   render() {
-    const {number1, number2, result} = this.state
+    const {number1, number2} = this.state
+    const result = number1 + number2;
     return (
       <div className="sum">
         <SumInput number={number1} onChangeNumber={this.changeNum1}/>
