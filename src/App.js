@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Sum from './Sum';
 import Menu from './Menu';
+import Menu2 from './Menu2';
 import './App.css';
 
 const CHECK_NUM = 5;
@@ -32,6 +33,7 @@ class App extends Component {
         </div>
         <Sum/>
         <Menu/>
+        <Menu2/>
       </div>
     );
   }
