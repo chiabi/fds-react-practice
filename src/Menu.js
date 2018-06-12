@@ -14,6 +14,10 @@ export default class Menu extends Component {
       {
         name: "볶음밥",
         select: false
+      },
+      {
+        name: "탕수육",
+        select: false
       }
     ]
   }

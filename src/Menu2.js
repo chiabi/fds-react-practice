@@ -1,26 +1,37 @@
 import React, { Component } from 'react';
 
 export default class Menu2 extends Component {
+  state = {
+    menus: ['짜장면', '짬뽕', '볶음밥', '탕수육', '유린기', '라조기'],
+    menu: null
+  }
+  choiceMenu = item => {
+    this.setState({
+      menu: item
+    })
+  }
   render() {
     return (
-      <div>
-        <MenuSelector menus={['짜장면', '짬뽕', '볶음밥']}/>
+      <div class="menu-selector">
+        <MenuSelector 
+          menus={this.state.menus}
+          menu={this.state.menu}
+          onChoice={this.choiceMenu}
+        />
       </div>
     )
   }
 }
 
 class MenuSelector extends Component {
-  state = {
-    menu: null
-  }
   render() {
+    const {menus, menu, onChoice} = this.props;
     return (
       <div>
-        {this.props.menus.map(item => (
-          <button onClick={e => this.setState({menu: item})}>{item}</button>
+        {menus.map(item => (
+          <button onClick={e => onChoice(item)}>{item}</button>
         ))}
-        <div>{this.state.menu && `${this.state.menu} 을 선택하셨습니다.`}</div>
+        <div>{menu && `${menu} 을 선택하셨습니다.`}</div>
       </div>
     )
   }
